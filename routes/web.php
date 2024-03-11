@@ -18,5 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('vendedors', '@index');
-Route::post('vendedors', '@index');
+Route::get('vendedores', '@index');
+Route::post('vendedores', '@index');
