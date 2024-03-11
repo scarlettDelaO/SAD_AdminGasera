@@ -78,20 +78,9 @@ class VendedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $vendedor=new Vendedor::findOrFail($request->id);
-        $vendedor->nombre=$request->nombre;
-        $vendedor->apPaterno=$request->apPaterno;
-        $vendedor->apMaterno=$request->apMaterno;
-        $vendedor->fechaN=$request->fechaN;
-        $vendedor->email=$request->email;
-        $vendedor->telefono=$request->telefono;
-        $vendedor->nss=$request->nss;
-        $vendedor->direccion=$request->direccion;
-
-        $vendedor->save();
-        return $vendedor;
+        //
     }
 
     /**
