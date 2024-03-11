@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Vendedor;
 
 class VendedorController extends Controller
 {
@@ -77,9 +78,20 @@ class VendedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $vendedor=new Vendedor::findOrFail($request->id);
+        $vendedor->nombre=$request->nombre;
+        $vendedor->apPaterno=$request->apPaterno;
+        $vendedor->apMaterno=$request->apMaterno;
+        $vendedor->fechaN=$request->fechaN;
+        $vendedor->email=$request->email;
+        $vendedor->telefono=$request->telefono;
+        $vendedor->nss=$request->nss;
+        $vendedor->direccion=$request->direccion;
+
+        $vendedor->save();
+        return $vendedor;
     }
 
     /**
