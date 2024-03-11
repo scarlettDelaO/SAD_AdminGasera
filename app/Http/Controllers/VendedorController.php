@@ -103,7 +103,7 @@ class VendedorController extends Controller
      */
     public function destroy(Request $request)
     {
-        $vendedor=Vendedor::findOrFail($request->id);
+        $vendedor=Vendedor::destroy($request->id);
         return $vendedor;
     }
 }
