@@ -42,6 +42,9 @@ class OrderController extends Controller
         $pedido->quantity = $request->quantity;
         $pedido->address = $request->address;
         $pedido->statu_id = $request->statu_id;
+        $precioPorLitro = 9.94;
+        $total = $pedido->quantity * ($precioPorLitro * (1 + 0.25) + 1);
+        $pedido->total = $total;
 
         $pedido->save();
     }
@@ -84,6 +87,9 @@ class OrderController extends Controller
         $pedido->quantity = $request->quantity;
         $pedido->address = $request->address;
         $pedido->statu_id = $request->statu_id;
+        $precioPorLitro = 9.94;
+        $total = $pedido->quantity * ($precioPorLitro * (1 + 0.25) + 1);
+        $pedido->total = $total;
 
         $pedido->save();
     
