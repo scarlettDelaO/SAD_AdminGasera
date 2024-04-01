@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,6 @@ Route::get('/', function () {
 
 Route::get('vendedores', '@index');
 Route::post('vendedores', '@index');
+
+Route::get('clientes', '@index');
+Route::post('clientes', '@index');
