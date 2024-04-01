@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Order;
 
-class UserController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $vendedores = User::all();
-        return $vendedores;
+        $pedidos = Order::with(['customer', 'status'])->get();
+        return response()->json($pedidos);
     }
 
     /**
@@ -36,18 +36,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $vendedor=new User();
-        $vendedor->role_id = 2;
-        $vendedor->name = $request->name;
-        $vendedor->lastname = $request->lastname;
-        $vendedor->birthdate = $request->birthdate;
-        $vendedor->phone = $request->phone;
-        $vendedor->address = $request->address;
-        $vendedor->nss = $request->nss; 
-        $vendedor->email = $request->email;
-        $vendedor->password = bcrypt($request->password); 
+        $pedido=new Order();
+        $pedido->customer_id = $request->customer_id;
+        $pedido->date = $request->date;
+        $pedido->quantity = $request->quantity;
+        $pedido->address = $request->address;
+        $pedido->statu_id = $request->statu_id;
 
-        $vendedor->save();
+        $pedido->save();
     }
 
     /**
@@ -58,8 +54,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $vendedor = User::findOrFail($id);
-        return response()->json($vendedor);
+        $pedido = Order::with(['customer', 'status'])->findOrFail($id);
+        return response()->json($pedido);
     }
 
     /**
@@ -80,25 +76,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $vendedor = User::findOrFail($id);
+        $pedido = Order::findOrFail($id);
+        $pedido->customer_id = $request->customer_id;
+        $pedido->date = $request->date;
+        $pedido->quantity = $request->quantity;
+        $pedido->address = $request->address;
+        $pedido->statu_id = $request->statu_id;
 
-        $vendedor->name = $request->name;
-        $vendedor->lastname = $request->lastname;
-        $vendedor->birthdate = $request->birthdate;
-        $vendedor->phone = $request->phone;
-        $vendedor->address = $request->address;
-        $vendedor->nss = $request->nss;
-        $vendedor->email = $request->email;
+        $pedido->save();
     
-        if (!empty($request->password)) {
-            $vendedor->password = bcrypt($request->password);
-        }
-    
-        $vendedor->save();
-    
-        return $vendedor;
+        return $pedido;
     }
 
     /**
@@ -109,7 +98,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $vendedor = User::destroy($id);
-        return $vendedor;
+        $pedido = Order::destroy($id);
+        return $pedido;
+
     }
 }
