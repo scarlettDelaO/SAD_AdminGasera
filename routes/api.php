@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\VendedorController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,5 @@ Route::put('/pedidos/{id}', 'App\Http\Controllers\OrderController@update');
 Route::delete('/pedidos/{id}', 'App\Http\Controllers\OrderController@destroy');
 
 Route::get('/data', 'App\Http\Controllers\VendedorController@index');
+
+Route::post('/login', 'App\Http\Controllers\AuthController@login');
