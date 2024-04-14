@@ -44,4 +44,4 @@ Route::delete('/pedidos/{id}', 'App\Http\Controllers\OrderController@destroy');
 
 Route::get('/data', 'App\Http\Controllers\VendedorController@index');
 
-Route::post('/login', 'App\Http\Controllers\AuthController@login');
+//Route::post('/login', 'App\Http\Controllers\AuthController@login');
