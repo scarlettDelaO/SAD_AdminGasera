@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Customer;
 
-class UserController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $vendedores = User::all();
-        return $vendedores;
+        $clientes = Customer::all();
+        return $clientes;
     }
 
     /**
@@ -36,18 +36,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $vendedor=new User();
-        $vendedor->role_id = 2;
-        $vendedor->name = $request->name;
-        $vendedor->lastname = $request->lastname;
-        $vendedor->birthdate = $request->birthdate;
-        $vendedor->phone = $request->phone;
-        $vendedor->address = $request->address;
-        $vendedor->nss = $request->nss; 
-        $vendedor->email = $request->email;
-        $vendedor->password = bcrypt($request->password); 
+        $cliente=new Customer();
+        $cliente->name = $request->name;
+        $cliente->paternal_surname = $request->paternal_surname;
+        $cliente->maternal_surname = $request->maternal_surname;
+        $cliente->address = $request->address;
+        $cliente->phone = $request->phone;
+        
 
-        $vendedor->save();
+        $cliente->save();
     }
 
     /**
@@ -58,8 +55,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $vendedor = User::findOrFail($id);
-        return response()->json($vendedor);
+        //
     }
 
     /**
@@ -80,25 +76,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $vendedor = User::findOrFail($id);
+        $cliente = Customer::findOrFail($request->id);
 
-        $vendedor->name = $request->name;
-        $vendedor->lastname = $request->lastname;
-        $vendedor->birthdate = $request->birthdate;
-        $vendedor->phone = $request->phone;
-        $vendedor->address = $request->address;
-        $vendedor->nss = $request->nss;
-        $vendedor->email = $request->email;
+        $cliente->name = $request->name;
+        $cliente->paternal_surname = $request->paternal_surname;
+        $cliente->maternal_surname = $request->maternal_surname;
+        $cliente->address = $request->address;
+        $cliente->phone = $request->phone;
+        
+        $cliente->save();
     
-        if (!empty($request->password)) {
-            $vendedor->password = bcrypt($request->password);
-        }
-    
-        $vendedor->save();
-    
-        return $vendedor;
+        return $cliente;
     }
 
     /**
@@ -109,7 +99,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $vendedor = User::destroy($id);
-        return $vendedor;
+        $cliente = Customer::findOrFail($id);
+        $cliente->delete();
     }
 }

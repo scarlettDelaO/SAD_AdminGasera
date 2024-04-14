@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Vendedor;
+use Illuminate\Support\Facades\DB; 
+use App\Models\Customer;
+use App\Models\Statu;
 
 class VendedorController extends Controller
 {
@@ -14,8 +16,12 @@ class VendedorController extends Controller
      */
     public function index()
     {
-        $vendedores = Vendedor::all();
-        return $vendedores;
+        $clientes = Customer::all();
+        $estados = Statu::all();
+        return response()->json([
+            'customers' => $clientes,
+            'status' => $estados,
+        ]);
     }
 
     /**
@@ -36,17 +42,7 @@ class VendedorController extends Controller
      */
     public function store(Request $request)
     {
-        $vendedor=new Vendedor();
-        $vendedor->nombre=$request->nombre;
-        $vendedor->apPaterno=$request->apPaterno;
-        $vendedor->apMaterno=$request->apMaterno;
-        $vendedor->fechaN=$request->fechaN;
-        $vendedor->email=$request->email;
-        $vendedor->telefono=$request->telefono;
-        $vendedor->nss=$request->nss;
-        $vendedor->direccion=$request->direccion;
-
-        $vendedor->save();
+       //
     }
 
     /**
@@ -80,19 +76,7 @@ class VendedorController extends Controller
      */
     public function update(Request $request)
     {
-        $vendedor=Vendedor::findOrFail($request->id);
-        $vendedor->nombre=$request->nombre;
-        $vendedor->apPaterno=$request->apPaterno;
-        $vendedor->apMaterno=$request->apMaterno;
-        $vendedor->fechaN=$request->fechaN;
-        $vendedor->email=$request->email;
-        $vendedor->telefono=$request->telefono;
-        $vendedor->nss=$request->nss;
-        $vendedor->direccion=$request->direccion;
-
-        $vendedor->save();
-
-        return $vendedor;
+        //
     }
 
     /**
@@ -103,7 +87,8 @@ class VendedorController extends Controller
      */
     public function destroy(Request $request)
     {
-        $vendedor=Vendedor::destroy($request->id);
-        return $vendedor;
+        //
     }
+
+    
 }

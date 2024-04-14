@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('address');
             $table->bigInteger('statu_id')->unsigned(); 
             $table->foreign('statu_id')->references('id')->on('status')->onDelete('cascade')->onUpdate('cascade');
+            $table->float('total');
             $table->timestamps();
         });
     }
