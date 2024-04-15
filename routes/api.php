@@ -42,3 +42,11 @@ Route::put('/pedidos/{id}', 'App\Http\Controllers\OrderController@update');
 Route::delete('/pedidos/{id}', 'App\Http\Controllers\OrderController@destroy');
 
 Route::get('/data', 'App\Http\Controllers\VendedorController@index');
+
+Route::get('/pipas/{id}', 'App\Http\Controllers\PipeController@show');
+Route::get('/pipas','App\Http\Controllers\PipeController@index');
+Route::post('/pipas', 'App\Http\Controllers\PipeController@store');
+Route::put('/pipas/{id}', 'App\Http\Controllers\PipeController@update');
+Route::delete('/pipas/{id}', 'App\Http\Controllers\PipeController@destroy');
+
+Route::get('/data2', 'App\Http\Controllers\VendedorController@index2');
