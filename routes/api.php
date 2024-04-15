@@ -42,12 +42,13 @@ Route::post('/pedidos', 'App\Http\Controllers\OrderController@store');
 Route::put('/pedidos/{id}', 'App\Http\Controllers\OrderController@update');
 Route::delete('/pedidos/{id}', 'App\Http\Controllers\OrderController@destroy');
 
-/*
-Route::get('/priceDetails','App\Http\Controllers\PriceDetailController@index');
-Route::post('/priceDetails','App\Http\Controllers\PriceDetailController@store');
-Route::put('/priceDetails/{id}','App\Http\Controllers\PriceDetailController@update');
-Route::delete('/priceDetails/{id}','App\Http\Controllers\PriceDetailController@destroy');
 
+Route::get('/detalles','App\Http\Controllers\PriceDetailController@index');
+Route::post('/detalles','App\Http\Controllers\PriceDetailController@store');
+Route::put('/detalles/{id}','App\Http\Controllers\PriceDetailController@update');
+Route::delete('/detalles/{id}','App\Http\Controllers\PriceDetailController@destroy');
+
+/*
 Route::get('/prices','App\Http\Controllers\PriceController@index');
 Route::post('/prices','App\Http\Controllers\PriceController@store');
 Route::put('/prices/{id}','App\Http\Controllers\PriceController@update');

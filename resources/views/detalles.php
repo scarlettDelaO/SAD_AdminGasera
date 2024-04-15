@@ -19,7 +19,7 @@
         <v-app>
             <v-main>
                 <br><br>
-                <h1 class="text-center" style="font-family:'Kids On The Moon' ; font-size: 50px;">PriceDetails</h1>
+                <h1 class="text-center" style="font-family:'Kids On The Moon' ; font-size: 50px;">Detalles Del Precio</h1>
                 <!-- Botón CREAR -->
                 <v-card class="mx-auto mt-5" color="transparent" max-width="1280" elevation="0">
                     <div>
@@ -34,23 +34,23 @@
                                 <thead>
                                     <tr class="pink darken-2 ">
                                         <th class="white--text ">Id</th>
-                                        <th class="white--text ">Net Price</th>
+                                        <th class="white--text ">Precio Neto</th>
                                         <th class="white--text ">IVA</th>
-                                        <th class="white--text ">Sale Price</th>
-                                        <th class="white--text ">Aggregate</th>
+                                        <th class="white--text ">Precio Publico</th>
+                                        <th class="white--text ">Agregado</th>
                                         <th class="white--text text-center "></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="priceDetails in priceDetailsList" :key="priceDetails.id">
-                                        <td>{{ priceDetails.id }}</td>
-                                        <td>{{ priceDetails.netPrice }}</td>
-                                        <td>{{ priceDetails.iva }}</td>
-                                        <td>{{ priceDetails.salePrice }}</td>
-                                        <td>{{ priceDetails.aggregate }}</td>
+                                    <tr v-for="detalle in detalles" :key="detalle.id">
+                                        <td>{{ detalle.id }}</td>
+                                        <td>{{ detalle.netPrice }}</td>
+                                        <td>{{ detalle.iva }}</td>
+                                        <td>{{ detalle.salePrice }}</td>
+                                        <td>{{ detalle.aggregate }}</td>
                                         <td style align="center">
-                                            <v-btn fab dark color="#0B7F9C" dark small fab @click="formEditar(priceDetails.id, priceDetails.netPrice, priceDetails.iva, priceDetails.salePrice, priceDetails.aggregate)"><v-icon>mdi-pencil</v-icon></v-btn>
-                                            <v-btn fab dark color="#0B7F9C" fab dark small @click="borrar(priceDetails.id) "><v-icon>mdi-delete</v-icon></v-btn>
+                                            <v-btn fab dark color="#0B7F9C" dark small fab @click="formEditar(detalle.id, detalle.netPrice, detalle.iva, detalle.salePrice, detalle.aggregate)"><v-icon>mdi-pencil</v-icon></v-btn>
+                                            <v-btn fab dark color="#0B7F9C" fab dark small @click="borrar(detalle.id) "><v-icon>mdi-delete</v-icon></v-btn>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -61,23 +61,23 @@
                 <!-- Componente de Diálogo para CREAR y EDITAR -->
                 <v-dialog v-model="dialog " max-width="500 ">
                     <v-card>
-                        <v-card-title class="pink darken-4 white--text ">Price Details</v-card-title>
+                        <v-card-title class="pink darken-4 white--text ">Detalles Del Precio</v-card-title>
                         <v-card-text>
                             <v-form>
                                 <v-container>
                                     <v-row>
-                                        <input v-model="priceDetails.id " hidden></input>
+                                        <input v-model="detalle.id " hidden></input>
                                         <v-col cols="12">
-                                            <v-text-field v-model="priceDetails.netPrice" label="Net Price" solo required>{{ priceDetails.netPrice }}</v-text-field>
+                                            <v-text-field v-model="detalle.netPrice" label="Precio Neto" solo required>{{ detalle.netPrice }}</v-text-field>
                                         </v-col>
                                         <v-col cols="12">
-                                            <v-text-field v-model="priceDetails.iva" label="IVA" solo required>{{ priceDetails.iva }}</v-text-field>
+                                            <v-text-field v-model="detalle.iva" label="IVA" solo required>{{ detalle.iva }}</v-text-field>
                                         </v-col>
                                         <v-col cols="12">
-                                            <v-text-field v-model="priceDetails.salePrice" label="Sale Price" solo required>{{ priceDetails.salePrice }}</v-text-field>
+                                            <v-text-field v-model="detalle.salePrice" label="Precio Publico" solo required>{{ detalle.salePrice }}</v-text-field>
                                         </v-col>
                                         <v-col cols="12">
-                                            <v-text-field v-model="priceDetails.aggregate" label="Aggregate" solo required>{{ priceDetails.aggregate }}</v-text-field>
+                                            <v-text-field v-model="detalle.aggregate" label="Agregado" solo required>{{ detalle.aggregate }}</v-text-field>
                                         </v-col>
                                     </v-row>
                                 </v-container>
@@ -104,10 +104,10 @@
             vuetify: new Vuetify(),
             data() {
                 return {
-                    priceDetailsList: [],
+                    detalles: [],
                     dialog: false,
                     operacion: '',
-                    priceDetails: {
+                    detalle: {
                         id: null,
                         netPrice: '',
                         iva: '',
@@ -124,35 +124,35 @@
                 mostrar: function() {
                     axios.get(url)
                         .then(response => {
-                            this.priceDetailsList = response.data;
+                            this.detalles = response.data;
                         })
                 },
                 crear: function() {
                     let parametros = {
-                        netPrice: this.priceDetails.netPrice,
-                        iva: this.priceDetails.iva,
-                        salePrice: this.priceDetails.salePrice,
-                        aggregate: this.priceDetails.aggregate
+                        netPrice: this.detalle.netPrice,
+                        iva: this.detalle.iva,
+                        salePrice: this.detalle.salePrice,
+                        aggregate: this.detalle.aggregate
                     };
                     axios.post(url, parametros)
                         .then(response => {
                             this.mostrar();
                         });
 
-                    this.priceDetails.netPrice = "";
-                    this.priceDetails.iva = "";
-                    this.priceDetails.salePrice = "";
-                    this.priceDetails.aggregate = "";
+                    this.detalle.netPrice = "";
+                    this.detalle.iva = "";
+                    this.detalle.salePrice = "";
+                    this.detalle.aggregate = "";
                 },
                 editar: function() {
                     let parametros = {
-                        netPrice: this.priceDetails.netPrice,
-                        iva: this.priceDetails.iva,
-                        salePrice: this.priceDetails.salePrice,
-                        aggregate: this.priceDetails.aggregate,
-                        id: this.priceDetails.id
+                        netPrice: this.detalle.netPrice,
+                        iva: this.detalle.iva,
+                        salePrice: this.detalle.salePrice,
+                        aggregate: this.detalle.aggregate,
+                        id: this.detalle.id
                     };
-                    axios.put(url + this.priceDetails.id, parametros)
+                    axios.put(url + this.detalle.id, parametros)
                         .then(response => {
                             this.mostrar();
                         })
@@ -189,7 +189,7 @@
                 formNuevo: function() {
                     this.dialog = true;
                     this.operacion = 'crear';
-                    this.priceDetails = {
+                    this.detalle = {
                         id: null,
                         netPrice: '',
                         iva: '',
@@ -198,11 +198,11 @@
                     };
                 },
                 formEditar: function(id, netPrice, iva, salePrice, aggregate) {
-                    this.priceDetails.id = id;
-                    this.priceDetails.netPrice = netPrice;
-                    this.priceDetails.iva = iva;
-                    this.priceDetails.salePrice = salePrice;
-                    this.priceDetails.aggregate = aggregate;
+                    this.detalle.id = id;
+                    this.detalle.netPrice = netPrice;
+                    this.detalle.iva = iva;
+                    this.detalle.salePrice = salePrice;
+                    this.detalle.aggregate = aggregate;
                     this.dialog = true;
                     this.operacion = 'editar';
                 }
