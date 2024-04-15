@@ -62,7 +62,7 @@
                 <a href="#">Ventas</a>
                 <a href="vendedores.html">Vendedores</a>
                 <a href="clientes.html">Clientes</a>
-                <a href="#">Detalles del precio</a>
+                <a href="detalles.html">Detalles del precio</a>
                 <a href="#">Perfil</a>
             </div>
         </div>
