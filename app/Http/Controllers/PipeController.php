@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB; 
-use App\Models\Customer;
-use App\Models\Statu;
-use App\Models\User;
+use App\Models\Pipe;
 
-class VendedorController extends Controller
+class PipeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,20 +14,8 @@ class VendedorController extends Controller
      */
     public function index()
     {
-        $clientes = Customer::all();
-        $estados = Statu::all();
-        return response()->json([
-            'customers' => $clientes,
-            'status' => $estados,
-        ]);
-    }
-
-    public function index2()
-    {
-        $vendedores = User::all();
-        return response()->json([
-            'users'=>$vendedores
-        ]);
+        $pipas = Pipe::with(['user'])->get();
+        return response()->json($pipas);
     }
 
     /**
@@ -51,7 +36,14 @@ class VendedorController extends Controller
      */
     public function store(Request $request)
     {
-       //
+        $pipa=new Pipe();
+        $pipa->salesperson_id = $request->salesperson_id;
+        $pipa->capacity = $request->capacity;
+        $pipa->niv = $request->niv;
+        $pipa->brand = $request->brand;
+        $pipa->model = $request->model;
+
+        $pipa->save();
     }
 
     /**
@@ -62,7 +54,8 @@ class VendedorController extends Controller
      */
     public function show($id)
     {
-        //
+        $pipa = Pipe::with(['users'])->findOrFail($id);
+        return response()->json($pipa);
     }
 
     /**
@@ -83,9 +76,17 @@ class VendedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        //
+        $pipa=Pipe::findOrFail($id);
+        $pipa->salesperson_id = $request->salesperson_id;
+        $pipa->capacity = $request->capacity;
+        $pipa->niv = $request->niv;
+        $pipa->brand = $request->brand;
+        $pipa->model = $request->model;
+
+        $pipa->save();
+        return $pipa;
     }
 
     /**
@@ -94,10 +95,9 @@ class VendedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        //
+        $pipa = Pipe::destroy($id);
+        return $pipa;
     }
-
-    
 }

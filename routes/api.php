@@ -61,7 +61,14 @@ Route::delete('/sales/{id}','App\Http\Controllers\SalesController@destroy');
 */
 
 
-
 Route::get('/data', 'App\Http\Controllers\VendedorController@index');
+
+Route::get('/pipas/{id}', 'App\Http\Controllers\PipeController@show');
+Route::get('/pipas','App\Http\Controllers\PipeController@index');
+Route::post('/pipas', 'App\Http\Controllers\PipeController@store');
+Route::put('/pipas/{id}', 'App\Http\Controllers\PipeController@update');
+Route::delete('/pipas/{id}', 'App\Http\Controllers\PipeController@destroy');
+
+Route::get('/data2', 'App\Http\Controllers\VendedorController@index2');
 
 //Route::post('/login', 'App\Http\Controllers\AuthController@login');
