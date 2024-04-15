@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\VendedorController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,24 @@ Route::post('/pedidos', 'App\Http\Controllers\OrderController@store');
 Route::put('/pedidos/{id}', 'App\Http\Controllers\OrderController@update');
 Route::delete('/pedidos/{id}', 'App\Http\Controllers\OrderController@destroy');
 
+/*
+Route::get('/priceDetails','App\Http\Controllers\PriceDetailController@index');
+Route::post('/priceDetails','App\Http\Controllers\PriceDetailController@store');
+Route::put('/priceDetails/{id}','App\Http\Controllers\PriceDetailController@update');
+Route::delete('/priceDetails/{id}','App\Http\Controllers\PriceDetailController@destroy');
+
+Route::get('/prices','App\Http\Controllers\PriceController@index');
+Route::post('/prices','App\Http\Controllers\PriceController@store');
+Route::put('/prices/{id}','App\Http\Controllers\PriceController@update');
+Route::delete('/prices/{id}','App\Http\Controllers\PriceController@destroy');
+
+Route::get('/sales','App\Http\Controllers\SalesController@index');
+Route::post('/sales','App\Http\Controllers\SalesController@store');
+Route::put('/sales/{id}','App\Http\Controllers\SalesController@update');
+Route::delete('/sales/{id}','App\Http\Controllers\SalesController@destroy');
+*/
+
+
 Route::get('/data', 'App\Http\Controllers\VendedorController@index');
 
 Route::get('/pipas/{id}', 'App\Http\Controllers\PipeController@show');
@@ -50,3 +69,5 @@ Route::put('/pipas/{id}', 'App\Http\Controllers\PipeController@update');
 Route::delete('/pipas/{id}', 'App\Http\Controllers\PipeController@destroy');
 
 Route::get('/data2', 'App\Http\Controllers\VendedorController@index2');
+
+//Route::post('/login', 'App\Http\Controllers\AuthController@login');
