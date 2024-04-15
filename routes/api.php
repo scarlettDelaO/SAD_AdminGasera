@@ -49,16 +49,18 @@ Route::post('/detalles','App\Http\Controllers\PriceDetailController@store');
 Route::put('/detalles/{id}','App\Http\Controllers\PriceDetailController@update');
 Route::delete('/detalles/{id}','App\Http\Controllers\PriceDetailController@destroy');
 
+Route::get('/ventas','App\Http\Controllers\SaleController@index');
+Route::post('/ventas','App\Http\Controllers\SaleController@store');
+Route::put('/ventas/{id}','App\Http\Controllers\SaleController@update');
+Route::delete('/ventas/{id}','App\Http\Controllers\SaleController@destroy');
+
 /*
 Route::get('/prices','App\Http\Controllers\PriceController@index');
 Route::post('/prices','App\Http\Controllers\PriceController@store');
 Route::put('/prices/{id}','App\Http\Controllers\PriceController@update');
 Route::delete('/prices/{id}','App\Http\Controllers\PriceController@destroy');
 
-Route::get('/sales','App\Http\Controllers\SalesController@index');
-Route::post('/sales','App\Http\Controllers\SalesController@store');
-Route::put('/sales/{id}','App\Http\Controllers\SalesController@update');
-Route::delete('/sales/{id}','App\Http\Controllers\SalesController@destroy');
+
 */
 
 
