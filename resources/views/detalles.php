@@ -18,16 +18,18 @@
     <div id="app">
         <v-app>
             <v-main>
+
+                <br><br>
                 <br><br>
                 <h1 class="text-center" style="font-family:'Kids On The Moon' ; font-size: 50px;">Detalles Del Precio</h1>
                 <!-- Botón CREAR -->
                 <v-card class="mx-auto mt-5" color="transparent" max-width="1280" elevation="0">
                     <div>
-                        <v-btn class="mx-2" fab dark color="#0B7F9C" @click="formNuevo() ">
-                            <v-icon dark>mdi-plus</v-icon>
-                        </v-btn>
+
                     </div>
                     <div>
+                        <br><br>
+                        <br><br>
                         <!-- Tabla y formulario -->
                         <v-simple-table class="mt-5 ">
                             <template v-slot:default>
@@ -50,7 +52,7 @@
                                         <td>{{ detalle.aggregate }}</td>
                                         <td style align="center">
                                             <v-btn fab dark color="#0B7F9C" dark small fab @click="formEditar(detalle.id, detalle.netPrice, detalle.iva, detalle.salePrice, detalle.aggregate)"><v-icon>mdi-pencil</v-icon></v-btn>
-                                            <v-btn fab dark color="#0B7F9C" fab dark small @click="borrar(detalle.id) "><v-icon>mdi-delete</v-icon></v-btn>
+                                            
                                         </td>
                                     </tr>
                                 </tbody>
@@ -98,7 +100,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.js " integrity="sha512- nqIFZC8560+CqHgXKez61MI0f9XSTKLkm0zFVm/99Wt0jSTZ7yeeYwbzyl0SGn/s8Mulbdw+ScCG41hmO2+FKw==" crossorigin=" anonymous "></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.0.2/dist/sweetalert2.all.min.js "></script>
     <script>
-        let url = 'http://127.0.0.1:8000/api/priceDetails/';
+        let url = 'http://127.0.0.1:8000/api/detalles/';
         new Vue({
             el: '#app',
             vuetify: new Vuetify(),
@@ -127,23 +129,7 @@
                             this.detalles = response.data;
                         })
                 },
-                crear: function() {
-                    let parametros = {
-                        netPrice: this.detalle.netPrice,
-                        iva: this.detalle.iva,
-                        salePrice: this.detalle.salePrice,
-                        aggregate: this.detalle.aggregate
-                    };
-                    axios.post(url, parametros)
-                        .then(response => {
-                            this.mostrar();
-                        });
 
-                    this.detalle.netPrice = "";
-                    this.detalle.iva = "";
-                    this.detalle.salePrice = "";
-                    this.detalle.aggregate = "";
-                },
                 editar: function() {
                     let parametros = {
                         netPrice: this.detalle.netPrice,
@@ -160,43 +146,15 @@
                             console.log(error);
                         });
                 },
-                borrar: function(id) {
-                    Swal.fire({
-                        title: '¿Confirma eliminar el registro?',
-                        confirmButtonText: `Confirmar`,
-                        showCancelButton: true,
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            //procedimiento borrar
-                            axios.delete(url + id)
-                                .then(response => {
-                                    this.mostrar();
-                                });
-                            Swal.fire('¡Eliminado!', '', 'success')
-                        } else if (result.isDenied) {}
-                    });
-                },
+
                 //Botones y formularios
                 guardar: function() {
-                    if (this.operacion == 'crear') {
-                        this.crear();
-                    }
                     if (this.operacion == 'editar') {
                         this.editar();
                     }
                     this.dialog = false;
                 },
-                formNuevo: function() {
-                    this.dialog = true;
-                    this.operacion = 'crear';
-                    this.detalle = {
-                        id: null,
-                        netPrice: '',
-                        iva: '',
-                        salePrice: '',
-                        aggregate: ''
-                    };
-                },
+
                 formEditar: function(id, netPrice, iva, salePrice, aggregate) {
                     this.detalle.id = id;
                     this.detalle.netPrice = netPrice;

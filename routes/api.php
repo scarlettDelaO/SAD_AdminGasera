@@ -43,6 +43,7 @@ Route::put('/pedidos/{id}', 'App\Http\Controllers\OrderController@update');
 Route::delete('/pedidos/{id}', 'App\Http\Controllers\OrderController@destroy');
 
 
+Route::get('/detalles/{id}','App\Http\Controllers\PriceDetailController@show');
 Route::get('/detalles','App\Http\Controllers\PriceDetailController@index');
 Route::post('/detalles','App\Http\Controllers\PriceDetailController@store');
 Route::put('/detalles/{id}','App\Http\Controllers\PriceDetailController@update');

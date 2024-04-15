@@ -54,7 +54,12 @@ class PriceDetailController extends Controller
      */
     public function show($id)
     {
-        //
+        $detalle = PriceDetail::find($id);
+        if ($detalle) {
+            return $detalle;
+        } else {
+            return response()->json(['error' => 'Detalle no encontrado'], 404);
+        }
     }
 
     /**
