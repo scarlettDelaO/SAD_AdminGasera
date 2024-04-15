@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Role;
 use App\Models\Statu;
+use App\Models\PaymentMethod;
 
 
 class DatabaseSeeder extends Seeder
@@ -24,6 +25,9 @@ class DatabaseSeeder extends Seeder
         Statu::factory()->create(['name'=> 'Pendiente']);
         Statu::factory()->create(['name'=> 'Completado']);
         Statu::factory()->create(['name'=> 'Cancelado']);
+
+        PaymentMethod::factory()->create(['name'=> 'Efectivo']);
+        PaymentMethod::factory()->create(['name'=> 'Transacción']);
         
     }
 }
