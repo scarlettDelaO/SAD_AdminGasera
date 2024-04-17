@@ -9,13 +9,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no,minimal-ui">
     <style>
         #app {
-            background-color: #e3f2f8;
+            background-color: #d1d0d0;
+        }
+        /* Estilos para el encabezado */
+        #header {
+            background-color: #0f0231;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo img {
+        height: 80%; /* Hace que la imagen ocupe todo el ancho disponible del contenedor */
+        width: auto; /* Mantiene la proporción de la imagen al ajustar el ancho */
+        max-height: 50px; /* Define una altura máxima para la imagen */
+        object-fit: contain; /* Ajusta la imagen para que se ajuste dentro del contenedor */
+        }
+
+        #menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        #menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 10px;
+            transition: all 0.3s ease;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        #menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
+        <div id="header">
+            <div id="logo">
+                <img src="logo.png" alt="Nombre_de_la_imagen">
+            </div>
+            <!--***********************CAMBIAR LOS ENLACES**************************-->
+            <div id="menu">
+                <a href="#">Ventas</a>
+                <a href="vendedores.html">Vendedores</a>
+                <a href="clientes.html">Clientes</a>
+                <a href="pipas.html">Pipas</a>
+                <a href="#">Perfil</a>
+            </div>
+        </div>
+
         <v-app>
             <v-main>
 
@@ -24,9 +74,7 @@
                 <h1 class="text-center" style="font-family:'Kids On The Moon' ; font-size: 50px;">Detalles Del Precio</h1>
                 <!-- Botón CREAR -->
                 <v-card class="mx-auto mt-5" color="transparent" max-width="1280" elevation="0">
-                    <div>
-
-                    </div>
+                    
                     <div>
                         <br><br>
                         <br><br>
@@ -34,7 +82,7 @@
                         <v-simple-table class="mt-5 ">
                             <template v-slot:default>
                                 <thead>
-                                    <tr class="pink darken-2 ">
+                                    <tr style="background-color: #FF5733;">
                                         <th class="white--text ">Id</th>
                                         <th class="white--text ">Precio Neto</th>
                                         <th class="white--text ">IVA</th>
@@ -51,7 +99,7 @@
                                         <td>{{ detalle.salePrice }}</td>
                                         <td>{{ detalle.aggregate }}</td>
                                         <td style align="center">
-                                            <v-btn fab dark color="#0B7F9C" dark small fab @click="formEditar(detalle.id, detalle.netPrice, detalle.iva, detalle.salePrice, detalle.aggregate)"><v-icon>mdi-pencil</v-icon></v-btn>
+                                            <v-btn fab dark color="#FFA20A" dark small fab @click="formEditar(detalle.id, detalle.netPrice, detalle.iva, detalle.salePrice, detalle.aggregate)"><v-icon>mdi-pencil</v-icon></v-btn>
                                             
                                         </td>
                                     </tr>

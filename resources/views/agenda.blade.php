@@ -9,13 +9,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no,minimal-ui">
     <style>
         #app {
-            background-color: #e3f2f8;
+            background-color: #e4e4e4;
+        }
+
+        /* Estilos para el encabezado */
+        #header {
+            background-color: #0f0231;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo img {
+        height: 80%; /* Hace que la imagen ocupe todo el ancho disponible del contenedor */
+        width: auto; /* Mantiene la proporción de la imagen al ajustar el ancho */
+        max-height: 50px; /* Define una altura máxima para la imagen */
+        object-fit: contain; /* Ajusta la imagen para que se ajuste dentro del contenedor */
+        }
+
+        #menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        #menu a{
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 10px;
+            transition: all 0.3s ease;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        #menu a:hover,  #logo a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
+        <div id="header">
+            <!--***********************CAMBIAR LOS ENLACES**************************-->
+            <div id="logo">
+                <a href="#"><img src="logo.png" alt="Nombre_de_la_imagen"></a>
+            </div>
+            <!--***********************CAMBIAR LOS ENLACES**************************-->
+            <div id="menu">
+                <a href="#">Ventas</a>
+                <a href="#">Perfil</a>
+            </div>
+        </div>
+
         <v-app>
             <v-main>
                 <br><br>
@@ -23,7 +72,7 @@
                 <!-- Botón CREAR -->
                 <v-card class="mx-auto mt-5" color="transparent" max-width="1280" elevation="0">
                     <div>
-                        <v-btn class="mx-2" fab dark color="#0B7F9C" @click="formNuevo() ">
+                        <v-btn class="mx-2" fab dark color="#FFA20A" @click="formNuevo() ">
                             <v-icon dark>mdi-plus</v-icon>
                             </v- btn>
                     </div>
@@ -33,7 +82,7 @@
                         <v-simple-table class="mt-5 ">
                             <template v-slot:default>
                         <thead>
-                        <tr class="pink darken-2 ">
+                        <tr style="background-color: #FF5733;">
                                 <th class="white--text ">ID</th>
                                 <th class="white--text ">Cliente</th>
                                 <th class="white--text ">Fecha</th>
@@ -58,11 +107,11 @@
                                 
                                 
                                 <td style align="center">
-                                    <v-btn fab dark color="#0B7F9C" dark small fab @click="formEditar(pedido.id, pedido.customer_id, pedido.date, 
+                                    <v-btn fab dark color="#FFA20A" dark small fab @click="formEditar(pedido.id, pedido.customer_id, pedido.date, 
                                     pedido.quantity, pedido.address, pedido.statu_id)"> <v-icon>mdi-pencil</v-icon></v-btn>
     
 
-                                <v-btn fab dark color="#0B7F9C" fab dark small @click="borrar(pedido.id) "><v-icon>mdi-delete</v-
+                                <v-btn fab dark color="#FFA20A" fab dark small @click="borrar(pedido.id) "><v-icon>mdi-delete</v-
                                 icon></v-btn>
 
                                 </td>
