@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sale;
+use App\Models\Customer;
+use App\Models\PaymentMethod;
 
 class SaleController extends Controller
 {
@@ -14,8 +16,8 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $ventas = Sale::all();
-        return $ventas;
+        $ventas = Sale::with(['customer', 'payment'])->get();
+        return response()->json($ventas);
     }
 
     /**
@@ -37,12 +39,12 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         $venta = new Sale();
-        $venta->id_detail = $request->id_detail;
-        $venta->id_customers = $request->id_customers;
+        $venta->customer_id = $request->customer_id;
+        $venta->detail_id = 1;
         $venta->date = $request->date;
         $venta->quantity = $request->quantity;
         $venta->discount = $request->discount;
-        $venta->id_pay = $request->id_pay;
+        $venta->pay_id = $request->pay_id;
         $venta->total = $request->total;
 
         $venta->save();
@@ -57,7 +59,8 @@ class SaleController extends Controller
      */
     public function show($id)
     {
-        //
+        $venta = Sale::with(['customer', 'payment'])->findOrFail($id);
+        return response()->json($venta);
     }
 
     /**
@@ -82,12 +85,12 @@ class SaleController extends Controller
     {
         $venta = Sale::findOrFail($id);
 
-        $venta->id_detail = $request->id_detail;
-        $venta->id_customers = $request->id_customers;
+        $venta->customer_id = $request->customer_id;
+        $venta->detail_id = 1;
         $venta->date = $request->date;
         $venta->quantity = $request->quantity;
         $venta->discount = $request->discount;
-        $venta->id_pay = $request->id_pay;
+        $venta->pay_id = $request->pay_id;
         $venta->total = $request->total;
 
         $venta->save();

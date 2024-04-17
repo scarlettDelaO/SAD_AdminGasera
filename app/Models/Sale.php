@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Customer;
+use App\Models\PaymentMethod;
+use App\Models\PriceDetail;
+
 class Sale extends Model
 {
     use HasFactory;
@@ -17,5 +21,21 @@ class Sale extends Model
         'id_pay',
         'total'
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(PaymentMethod::class, 'pay_id');
+    }
+
+    public function detail()
+    {
+        return $this->belongsTo(PriceDetail::class);
+    }
+
 
 }
