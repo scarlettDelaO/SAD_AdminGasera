@@ -52,7 +52,7 @@ Route::delete('/detalles/{id}','App\Http\Controllers\PriceDetailController@destr
 Route::get('/ventas/{id}','App\Http\Controllers\SaleController@show');
 Route::get('/ventas','App\Http\Controllers\SaleController@index');
 Route::post('/ventas','App\Http\Controllers\SaleController@store');
-Route::put('/ventas/{id}','App\Http\Controllers\SaleController@update');
+//Route::put('/ventas/{id}','App\Http\Controllers\SaleController@update');
 Route::delete('/ventas/{id}','App\Http\Controllers\SaleController@destroy');
 
 /*

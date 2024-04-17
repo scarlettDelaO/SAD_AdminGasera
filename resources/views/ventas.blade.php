@@ -19,7 +19,7 @@
         <v-app>
             <v-main>
                 <br><br>
-                <h1 class="text-center" style="font-family:'Kids On The Moon' ; font-size: 50px;">Sales</h1>
+                <h1 class="text-center" style="font-family:'Kids On The Moon' ; font-size: 50px;">Ventas</h1>
                 <!-- Botón CREAR -->
                 <v-card class="mx-auto mt-5" color="transparent" max-width="1280" elevation="0">
                     <div>
@@ -34,29 +34,28 @@
                                 <thead>
                                     <tr class="pink darken-2 ">
                                         <th class="white--text ">ID</th>
-                                        <th class="white--text ">ID Customers</th>
-                                        <th class="white--text ">ID Detail</th>
-                                        <th class="white--text ">Date</th>
-                                        <th class="white--text ">Quantity</th>
-                                        <th class="white--text ">Discount</th>
-                                        <th class="white--text ">ID Pay</th>
+                                        <th class="white--text ">Cliente</th>
+                                        <th class="white--text ">Fecha</th>
+                                        <th class="white--text ">Cantidad</th>
+                                        <th class="white--text ">Descuento</th>
+                                        <th class="white--text ">Pago</th>
                                         <th class="white--text ">Total</th>
                                         <th class="white--text text-center "></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="sale in salesList" :key="sale.id">
-                                        <td>{{ sale.id }}</td>
-                                        <td>{{ sale.id_customers }}</td>
-                                        <td>{{ sale.id_detail }}</td>
-                                        <td>{{ sale.date }}</td>
-                                        <td>{{ sale.quantity }}</td>
-                                        <td>{{ sale.discount }}</td>
-                                        <td>{{ sale.id_pay }}</td>
-                                        <td>{{ sale.total }}</td>
+                                    <tr v-for="venta in ventas" :key="venta.id">
+                                        <td>{{ venta.id }}</td>
+                                        <td>{{ venta.customer.name }} {{ venta.customer.paternal_surname }} {{ venta.customer.maternal_surname }}</td>
+                                        <td>{{ venta.date }}</td>
+                                        <td>{{ venta.quantity }}</td>
+                                        <td>{{ venta.discount }}</td>
+                                        <td>{{ venta.payment.name }}</td>
+                                        <td>{{ venta.total }}</td>
+
                                         <td style align="center">
-                                            <v-btn fab dark color="#0B7F9C" dark small fab @click="formEditar(sale.id, sale.id_customers, sale.id_detail, sale.date, sale.quantity, sale.discount, sale.id_pay, sale.total)"><v-icon>mdi-pencil</v-icon></v-btn>
-                                            <v-btn fab dark color="#0B7F9C" fab dark small @click="borrar(sale.id) "><v-icon>mdi-delete</v-icon></v-btn>
+                                            <v-btn fab dark color="#0B7F9C" dark small fab @click="formEditar(venta.id, venta.id_customers, venta.date, venta.quantity, venta.discount, venta.id_pay, venta.total)"><v-icon>mdi-pencil</v-icon></v-btn>
+                                            <v-btn fab dark color="#0B7F9C" fab dark small @click="borrar(venta.id) "><v-icon>mdi-delete</v-icon></v-btn>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -67,33 +66,28 @@
                 <!-- Componente de Diálogo para CREAR y EDITAR -->
                 <v-dialog v-model="dialog " max-width="500 ">
                     <v-card>
-                        <v-card-title class="pink darken-4 white--text ">Sales</v-card-title>
+                        <v-card-title class="pink darken-4 white--text ">Ventas</v-card-title>
                         <v-card-text>
                             <v-form>
                                 <v-container>
                                     <v-row>
-                                        <input v-model="sale.id " hidden></input>
+                                        <input v-model="venta.id " hidden></input>
                                         <v-col cols="12">
-                                            <v-text-field v-model="sale.id_customers" label="ID Customers" solo required>{{ sale.id_customers }}</v-text-field>
+                                            <v-select v-model="venta.customer_id" :items="clientes" item-text="fullName" item-value="id" label="Cliente" solo required>{{ venta.customer_id }}</v-select>
                                         </v-col>
                                         <v-col cols="12">
-                                            <v-text-field v-model="sale.id_detail" label="ID Detail" solo required>{{ sale.id_detail }}</v-text-field>
+                                            <v-text-field v-model="venta.date" label="Fecha de Venta (AAAA-MM-DD)" solo required>{{ venta.date }}</v-text-field>
                                         </v-col>
                                         <v-col cols="12">
-                                            <v-text-field v-model="sale.date" label="Date" solo required>{{ sale.date }}</v-text-field>
+                                            <v-text-field v-model="venta.quantity" label="Cantidad" solo required>{{ venta.quantity }}</v-text-field>
                                         </v-col>
                                         <v-col cols="12">
-                                            <v-text-field v-model="sale.quantity" label="Quantity" solo required>{{ sale.quantity }}</v-text-field>
+                                            <v-text-field v-model="venta.discount" label="Descuento" solo required>{{ venta.discount }}</v-text-field>
                                         </v-col>
                                         <v-col cols="12">
-                                            <v-text-field v-model="sale.discount" label="Discount" solo required>{{ sale.discount }}</v-text-field>
+                                            <v-select v-model="venta.pay_id" :items="pagos" item-text="name" item-value="id" label="Método de Pago" solo required>{{ venta.pay_id }}</v-select>
                                         </v-col>
-                                        <v-col cols="12">
-                                            <v-text-field v-model="sale.id_pay" label="ID Pay" solo required>{{ sale.id_pay }}</v-text-field>
-                                        </v-col>
-                                        <v-col cols="12">
-                                            <v-text-field v-model="sale.total" label="Total" solo required>{{ sale.total }}</v-text-field>
-                                        </v-col>
+
                                     </v-row>
                                 </v-container>
                             </v-form>
@@ -110,83 +104,88 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js "></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js "></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.js " integrity="sha512- nqIFZC8560+CqHgXKez61MI0f9XSTKLkm0zFVm/99Wt0jSTZ7yeeYwbzyl0SGn/s8Mulbdw+ScCG41hmO2+FKw==" crossorigin=" anonymous "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.js " crossorigin=" anonymous "></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.0.2/dist/sweetalert2.all.min.js "></script>
     <script>
-        let url = 'http://127.0.0.1:8000/api/sales/';
+        let url = 'http://127.0.0.1:8000/api/ventas/';
         new Vue({
             el: '#app',
             vuetify: new Vuetify(),
             data() {
                 return {
-                    salesList: [],
+                    clientes: [],
+                    pagos: [],
+                    ventas: [],
                     dialog: false,
                     operacion: '',
-                    sale: {
+                    venta: {
                         id: null,
-                        id_customers: '',
-                        id_detail: '',
+                        customer_id: '',
                         date: '',
                         quantity: '',
                         discount: '',
-                        id_pay: '',
-                        total: ''
+                        pay_id: ''
                     }
                 }
             },
             created() {
-                this.mostrar()
+                this.mostrar();
+                this.cargarDatos();
             },
             methods: {
-                //MÉTODOS PARA EL CRUD
                 mostrar: function() {
                     axios.get(url)
                         .then(response => {
-                            this.salesList = response.data;
-                        })
+                            this.ventas = response.data;
+                        });
+                },
+                cargarDatos() {
+                    axios.get('http://127.0.0.1:8000/api/data').then((response) => {
+                        this.clientes = response.data.customers.map(cliente => {
+                            cliente.fullName = `${cliente.name} ${cliente.paternal_surname} ${cliente.maternal_surname}`;
+                            return cliente;
+                        });
+                        this.pagos = response.data.payment_methods;
+                    });
                 },
                 crear: function() {
                     let parametros = {
-                        id_customers: this.sale.id_customers,
-                        id_detail: this.sale.id_detail,
-                        date: this.sale.date,
-                        quantity: this.sale.quantity,
-                        discount: this.sale.discount,
-                        id_pay: this.sale.id_pay,
-                        total: this.sale.total
+                        customer_id: this.venta.customer_id,
+                        date: this.venta.date,
+                        quantity: this.venta.quantity,
+                        discount: this.venta.discount,
+                        pay_id: this.venta.pay_id
                     };
                     axios.post(url, parametros)
                         .then(response => {
                             this.mostrar();
+                            Swal.fire('Creado', 'El registro se ha creado exitosamente', 'success');
+                        })
+                        .catch(error => {
+                            console.error("Error al crear:", error);
+                            Swal.fire('Error', 'No se pudo crear el registro: ' + error.message, 'error');
                         });
-
-                    this.sale.id_customers = "";
-                    this.sale.id_detail = "";
-                    this.sale.date = "";
-                    this.sale.quantity = "";
-                    this.sale.discount = "";
-                    this.sale.id_pay = "";
-                    this.sale.total = "";
                 },
                 editar: function() {
                     let parametros = {
-                        id_customers: this.sale.id_customers,
-                        id_detail: this.sale.id_detail,
-                        date: this.sale.date,
-                        quantity: this.sale.quantity,
-                        discount: this.sale.discount,
-                        id_pay: this.sale.id_pay,
-                        total: this.sale.total,
-                        id: this.sale.id
+                        customer_id: this.venta.customer_id,
+                        date: this.venta.date,
+                        quantity: this.venta.quantity,
+                        discount: this.venta.discount,
+                        pay_id: this.venta.pay_id,
+                        id: this.venta.id
                     };
-                    axios.put(url + this.sale.id, parametros)
+                    axios.put(url + this.venta.id, parametros)
                         .then(response => {
                             this.mostrar();
+                            Swal.fire('Actualizado', 'El registro se ha actualizado exitosamente', 'success');
                         })
                         .catch(error => {
-                            console.log(error);
+                            console.error("Error al actualizar:", error);
+                            Swal.fire('Error', 'No se pudo actualizar el registro: ' + error.message, 'error');
                         });
                 },
+
                 borrar: function(id) {
                     Swal.fire({
                         title: '¿Confirma eliminar el registro?',
@@ -194,21 +193,18 @@
                         showCancelButton: true,
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            //procedimiento borrar
                             axios.delete(url + id)
                                 .then(response => {
                                     this.mostrar();
                                 });
                             Swal.fire('¡Eliminado!', '', 'success')
-                        } else if (result.isDenied) {}
+                        }
                     });
                 },
-                //Botones y formularios
                 guardar: function() {
                     if (this.operacion == 'crear') {
                         this.crear();
-                    }
-                    if (this.operacion == 'editar') {
+                    } else if (this.operacion == 'editar') {
                         this.editar();
                     }
                     this.dialog = false;
@@ -216,32 +212,30 @@
                 formNuevo: function() {
                     this.dialog = true;
                     this.operacion = 'crear';
-                    this.sale = {
+                    this.venta = {
                         id: null,
-                        id_customers: '',
-                        id_detail: '',
+                        customer_id: '',
                         date: '',
                         quantity: '',
                         discount: '',
-                        id_pay: '',
-                        total: ''
+                        pay_id: ''
                     };
                 },
-                formEditar: function(id, id_customers, id_detail, date, quantity, discount, id_pay, total) {
-                    this.sale.id = id;
-                    this.sale.id_customers = id_customers;
-                    this.sale.id_detail = id_detail;
-                    this.sale.date = date;
-                    this.sale.quantity = quantity;
-                    this.sale.discount = discount;
-                    this.sale.id_pay = id_pay;
-                    this.sale.total = total;
+                formEditar: function(id, customer_id, date, quantity, discount, pay_id) {
+                    this.venta.id = id;
+                    this.venta.customer_id = customer_id;
+                    this.venta.date = date;
+                    this.venta.quantity = quantity;
+                    this.venta.discount = discount;
+                    this.venta.pay_id = pay_id;
                     this.dialog = true;
                     this.operacion = 'editar';
                 }
             }
         });
     </script>
+
+
 </body>
 
 </html>

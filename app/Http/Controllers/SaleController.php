@@ -7,6 +7,7 @@ use App\Models\Sale;
 use App\Models\Customer;
 use App\Models\PaymentMethod;
 
+
 class SaleController extends Controller
 {
     /**
@@ -18,6 +19,7 @@ class SaleController extends Controller
     {
         $ventas = Sale::with(['customer', 'payment'])->get();
         return response()->json($ventas);
+
     }
 
     /**
@@ -38,17 +40,18 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        $venta = new Sale();
-        $venta->customer_id = $request->customer_id;
-        $venta->detail_id = 1;
-        $venta->date = $request->date;
-        $venta->quantity = $request->quantity;
-        $venta->discount = $request->discount;
-        $venta->pay_id = $request->pay_id;
-        $venta->total = $request->total;
-
-        $venta->save();
-
+        $validatedData = Validator::make($request->all(), [
+            'customer_id' => 'required|integer',
+            'detail_id' => 'required|integer',
+            'quantity' => 'required|integer',
+            'discount' => 'required|numeric',
+            'pay_id' => 'required|integer',
+            'total' => 'required|numeric'
+        ]);
+    
+        if ($validatedData->fails()) {
+            return response()->json(['errors' => $validatedData->errors()], 422);
+        }
     }
 
     /**
@@ -59,8 +62,7 @@ class SaleController extends Controller
      */
     public function show($id)
     {
-        $venta = Sale::with(['customer', 'payment'])->findOrFail($id);
-        return response()->json($venta);
+         
     }
 
     /**
@@ -83,20 +85,7 @@ class SaleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $venta = Sale::findOrFail($id);
-
-        $venta->customer_id = $request->customer_id;
-        $venta->detail_id = 1;
-        $venta->date = $request->date;
-        $venta->quantity = $request->quantity;
-        $venta->discount = $request->discount;
-        $venta->pay_id = $request->pay_id;
-        $venta->total = $request->total;
-
-        $venta->save();
-
-        return $venta;
-
+        
     }
 
     /**

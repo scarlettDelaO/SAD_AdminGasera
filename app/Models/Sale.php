@@ -12,15 +12,6 @@ use App\Models\PriceDetail;
 class Sale extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'id_detail',
-        'id_customers',
-        'date',
-        'quantity',
-        'discount',
-        'id_pay',
-        'total'
-    ];
 
     public function customer()
     {
@@ -36,6 +27,16 @@ class Sale extends Model
     {
         return $this->belongsTo(PriceDetail::class);
     }
+
+    protected $fillable = [
+        'customer_id',
+        'detail_id',
+        'date',
+        'quantity',
+        'discount',
+        'pay_id',
+        'total',
+    ];
 
 
 }
