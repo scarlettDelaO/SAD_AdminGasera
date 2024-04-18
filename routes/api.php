@@ -52,17 +52,13 @@ Route::delete('/detalles/{id}','App\Http\Controllers\PriceDetailController@destr
 Route::get('/ventas/{id}','App\Http\Controllers\SaleController@show');
 Route::get('/ventas','App\Http\Controllers\SaleController@index');
 Route::post('/ventas','App\Http\Controllers\SaleController@store');
-//Route::put('/ventas/{id}','App\Http\Controllers\SaleController@update');
+Route::put('/ventas/{id}','App\Http\Controllers\SaleController@update');
 Route::delete('/ventas/{id}','App\Http\Controllers\SaleController@destroy');
 
-/*
-Route::get('/prices','App\Http\Controllers\PriceController@index');
-Route::post('/prices','App\Http\Controllers\PriceController@store');
-Route::put('/prices/{id}','App\Http\Controllers\PriceController@update');
-Route::delete('/prices/{id}','App\Http\Controllers\PriceController@destroy');
 
+Route::get('/precios','App\Http\Controllers\PriceController@index');
+Route::post('/precios','App\Http\Controllers\PriceController@store');
 
-*/
 
 
 Route::get('/data', 'App\Http\Controllers\VendedorController@index');
