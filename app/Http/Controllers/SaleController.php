@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sale;
+use App\Models\Customer;
+use App\Models\PaymentMethod;
+
 
 class SaleController extends Controller
 {
@@ -14,8 +17,9 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $ventas = Sale::all();
-        return $ventas;
+        $ventas = Sale::with(['customer', 'payment'])->get();
+        return response()->json($ventas);
+
     }
 
     /**
@@ -36,17 +40,18 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        $venta = new Sale();
-        $venta->id_detail = $request->id_detail;
-        $venta->id_customers = $request->id_customers;
-        $venta->date = $request->date;
-        $venta->quantity = $request->quantity;
-        $venta->discount = $request->discount;
-        $venta->id_pay = $request->id_pay;
-        $venta->total = $request->total;
-
-        $venta->save();
-
+        $validatedData = Validator::make($request->all(), [
+            'customer_id' => 'required|integer',
+            'detail_id' => 'required|integer',
+            'quantity' => 'required|integer',
+            'discount' => 'required|numeric',
+            'pay_id' => 'required|integer',
+            'total' => 'required|numeric'
+        ]);
+    
+        if ($validatedData->fails()) {
+            return response()->json(['errors' => $validatedData->errors()], 422);
+        }
     }
 
     /**
@@ -57,7 +62,7 @@ class SaleController extends Controller
      */
     public function show($id)
     {
-        //
+         
     }
 
     /**
@@ -80,20 +85,7 @@ class SaleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $venta = Sale::findOrFail($id);
-
-        $venta->id_detail = $request->id_detail;
-        $venta->id_customers = $request->id_customers;
-        $venta->date = $request->date;
-        $venta->quantity = $request->quantity;
-        $venta->discount = $request->discount;
-        $venta->id_pay = $request->id_pay;
-        $venta->total = $request->total;
-
-        $venta->save();
-
-        return $venta;
-
+        
     }
 
     /**

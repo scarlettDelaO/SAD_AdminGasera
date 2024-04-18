@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Customer;
 use App\Models\Statu;
 use App\Models\User;
+use App\Models\PaymentMethod;
 
 class VendedorController extends Controller
 {
@@ -19,9 +20,11 @@ class VendedorController extends Controller
     {
         $clientes = Customer::all();
         $estados = Statu::all();
+        $metodosPago = PaymentMethod::all();
         return response()->json([
             'customers' => $clientes,
             'status' => $estados,
+            'payment_methods' => $metodosPago
         ]);
     }
 
