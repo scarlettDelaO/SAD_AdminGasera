@@ -29,6 +29,7 @@ Route::get('/vendedores','App\Http\Controllers\UserController@index');
 Route::post('/vendedores','App\Http\Controllers\UserController@store');
 Route::put('/vendedores/{id}','App\Http\Controllers\UserController@update');
 Route::delete('/vendedores/{id}','App\Http\Controllers\UserController@destroy');
+//Route::get('/users', 'App\Http\Controllers\UserController@perfil');
 
 Route::get('/clientes','App\Http\Controllers\CustomerController@index');
 Route::post('/clientes','App\Http\Controllers\CustomerController@store');
@@ -72,3 +73,7 @@ Route::delete('/pipas/{id}', 'App\Http\Controllers\PipeController@destroy');
 Route::get('/data2', 'App\Http\Controllers\VendedorController@index2');
 
 //Route::post('/login', 'App\Http\Controllers\AuthController@login');
+
+Route::post('/login', 'App\Http\Controllers\AuthController@login');
+
+//Route::post('/login', [AuthController::class, 'login']);

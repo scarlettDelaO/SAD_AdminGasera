@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use JWTAuth;
 
 class UserController extends Controller
 {
@@ -111,5 +112,22 @@ class UserController extends Controller
     {
         $vendedor = User::destroy($id);
         return $vendedor;
+    }
+
+    public function perfil(Request $request)
+    {
+        // Obtener el usuario autenticado
+        $user = $request->user();
+
+        // Retornar los datos del perfil del usuario
+        return response()->json([
+            'name' => $user->name,
+            'lastname' => $user->lastname,
+            'phone' => $user->phone,
+            'address' => $user->address,
+            'nss' => $user->nss,
+            'email' => $user->email,
+            // No devuelvas la contraseña por razones de seguridad
+        ]);
     }
 }
