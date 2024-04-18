@@ -113,13 +113,4 @@ class UserController extends Controller
         $vendedor = User::destroy($id);
         return $vendedor;
     }
-
-    public function perfil(Request $request)
-    {
-        // Obtener el usuario autenticado
-        $user = $request->user();
-
-        // Devolver los datos del perfil del usuario
-        return response()->json($user);
-    }
 }
