@@ -53,16 +53,17 @@
 <body>
     <div id="app">
         <div id="header">
-            <div id="logo">
-                <img src="logo.png" alt="Nombre_de_la_imagen">
+        <div id="logo">
+                <a href="principalAdmin.html"><img src="logo.png" alt="Nombre_de_la_imagen"></a>
             </div>
             <!--***********************CAMBIAR LOS ENLACES**************************-->
             <div id="menu">
-                <a href="#">Ventas</a>
+                <a href="#">Ventas</a> 
                 <a href="clientes.html">Clientes</a>
+                <a href="vendedores.html">Vendedores</a>
                 <a href="pipas.html">Pipas</a>
                 <a href="detalles.html">Detalles del precio</a>
-                <a href="#">Perfil</a>
+                <a href="perfilAdmin.html">Perfil</a>
             </div>
         </div>
 
