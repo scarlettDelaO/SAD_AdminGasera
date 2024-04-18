@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('nss');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->password();
             $table->timestamps();
         });
     }
