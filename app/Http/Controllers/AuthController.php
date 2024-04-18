@@ -9,7 +9,7 @@ use App\Models\User;
 class AuthController extends Controller
 {
 
-    /*public function login(Request $request)
+    public function login(Request $request)
 {
     $credentials = $request->only('email', 'password');
 
@@ -22,8 +22,8 @@ class AuthController extends Controller
     } else {
         return response()->json(['error' => 'Credenciales inválidas'], 401);
     }
-}*/
-
+}
+/*
 public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -41,4 +41,5 @@ public function login(Request $request)
     }
 
 
+}*/
 }

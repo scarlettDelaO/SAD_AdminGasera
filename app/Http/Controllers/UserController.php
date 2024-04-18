@@ -119,15 +119,7 @@ class UserController extends Controller
         // Obtener el usuario autenticado
         $user = $request->user();
 
-        // Retornar los datos del perfil del usuario
-        return response()->json([
-            'name' => $user->name,
-            'lastname' => $user->lastname,
-            'phone' => $user->phone,
-            'address' => $user->address,
-            'nss' => $user->nss,
-            'email' => $user->email,
-            // No devuelvas la contraseña por razones de seguridad
-        ]);
+        // Devolver los datos del perfil del usuario
+        return response()->json($user);
     }
 }

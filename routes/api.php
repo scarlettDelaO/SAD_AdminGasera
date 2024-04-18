@@ -29,7 +29,7 @@ Route::get('/vendedores','App\Http\Controllers\UserController@index');
 Route::post('/vendedores','App\Http\Controllers\UserController@store');
 Route::put('/vendedores/{id}','App\Http\Controllers\UserController@update');
 Route::delete('/vendedores/{id}','App\Http\Controllers\UserController@destroy');
-//Route::get('/users', 'App\Http\Controllers\UserController@perfil');
+Route::get('/perfil', 'App\Http\Controllers\UserController@perfil');
 
 Route::get('/clientes','App\Http\Controllers\CustomerController@index');
 Route::post('/clientes','App\Http\Controllers\CustomerController@store');
