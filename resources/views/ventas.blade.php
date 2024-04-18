@@ -165,6 +165,12 @@
                             console.error("Error al crear:", error);
                             Swal.fire('Error', 'No se pudo crear el registro: ' + error.message, 'error');
                         });
+
+                    this.venta.customer_id = "";
+                    this.venta.date = "";
+                    this.venta.quantity = "";
+                    this.venta.discount = "";
+                    this.venta.pay_id = "";
                 },
                 editar: function() {
                     let parametros = {
